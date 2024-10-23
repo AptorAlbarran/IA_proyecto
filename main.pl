@@ -64,7 +64,7 @@ property_extension_clase(Clase, Propiedad, BaseConocimiento, Visitadas, Ext) :-
 miembro(X, [X|_]).
 miembro(X, [_|T]) :- miembro(X, T).
 
-% punto 2 y 3 predicados
+% predicados para puntos 2 y 3
 
 % Leer base de conocimientos desde un archivo .txt
 read_kb(File, KB) :-
@@ -72,14 +72,18 @@ read_kb(File, KB) :-
     read_terms(Stream, KB),
     close(Stream).
 
-% Leer todos los términos del archivo
+% Leer todos los términos del archivo, ignorando end_of_file
 read_terms(Stream, []) :-
     at_end_of_stream(Stream).
 
-read_terms(Stream, [H|T]) :-
-    \+ at_end_of_stream(Stream),
+read_terms(Stream, KB) :-
     read(Stream, H),
-    read_terms(Stream, T).
+    ( H == end_of_file ->
+        KB = []
+    ;
+        read_terms(Stream, T),
+        KB = [H|T]
+    ).
 
 % Guardar la base de conocimientos en un archivo .txt
 write_kb(File, KB) :-
@@ -99,7 +103,14 @@ write_terms(Stream, [H|T]) :-
 % Añadir una clase a la base de conocimientos y guardarla en un archivo .txt
 add_class(ClassName, ClassMother, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
-    append(CurrentKB, [class(ClassName, ClassMother, [], [], [])], NewKB),
+    % Revisa si la clase ya existe
+    ( member(class(ClassName, _, _, _, _), CurrentKB) ->
+        write('Class already exists. Not adding a duplicate.\n'),
+        NewKB = CurrentKB
+    ; 
+        % Añade la nueva clase si no existe
+        append(CurrentKB, [class(ClassName, ClassMother, [], [], [])], NewKB)
+    ),
     write_kb(NewKBFile, NewKB).
 
 % Añadir un objeto a la base de conocimientos y guardarlo en un archivo .txt
