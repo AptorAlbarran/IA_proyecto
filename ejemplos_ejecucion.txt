@@ -1,9 +1,14 @@
-?- read_kb("kb.txt", KB).
-KB = [class(animal, none, [], [], [])] .
-
 +-------------------------------------------------------+
 | Ejemplos de ejecución de punto 1                      |
 +-------------------------------------------------------+
+
+
++-------------------------------------------------------+
+| Ejemplos de ejecución de punto 2                      |
++-------------------------------------------------------+
+
+?- read_kb("kb.txt", KB).
+KB = [class(animal, none, [], [], [])] .
 
 ?- add_class(cat, animal, 'kb.txt', 'kb.txt').
 true .
@@ -34,9 +39,41 @@ true .
 
 ---------------------------------------------------------
 
-?- add_object_relation(spike, hate, [tom], 'kb.txt', 'kb.txt'). % hay una clase, dog que tiene de objeto a spike
+?- add_object_relation(spike, hate, [tom], 'kb.txt', 'kb.txt'). % hay una clase, perro que tiene de objeto a spike
 true .
 
 +-------------------------------------------------------+
-| Ejemplos de ejecución de punto 2                      |
+| Ejemplos de ejecución de punto 3                      |
++-------------------------------------------------------+
+
+?- rm_class(cat, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- rm_object(tom, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- rm_class_property(dog, eat, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- rm_object_property(spike, color, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- rm_class_relation(dog, hunt, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- rm_object_relation(spike, hate, 'kb.txt', 'kb.txt').
+true .
+
++-------------------------------------------------------+
+| Ejemplos de ejecución de punto 4                      |
 +-------------------------------------------------------+
