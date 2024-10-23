@@ -34,7 +34,7 @@ true .
 
 ---------------------------------------------------------
 
-?- add_object_relation(spike, hate, [tom], 'kb.txt', 'kb.txt'). % hay una clase, perro que tiene de objeto a spike
+?- add_object_relation(spike, hate, [tom], 'kb.txt', 'kb.txt'). % hay una clase, dog que tiene de objeto a spike
 true .
 
 +-------------------------------------------------------+
