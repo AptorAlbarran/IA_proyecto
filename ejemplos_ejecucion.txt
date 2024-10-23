@@ -1,0 +1,42 @@
+?- read_kb("kb.txt", KB).
+KB = [class(animal, none, [], [], [])] .
+
++-------------------------------------------------------+
+| Ejemplos de ejecución de punto 1                      |
++-------------------------------------------------------+
+
+?- add_class(cat, animal, 'kb.txt', 'kb.txt').
+true .
+
+
+?- add_class(mouse, animal, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- add_object(tom, cat, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- add_class_property(cat, has, whiskers, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- add_object_property(tom, color, grey_and_white, 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- add_class_relation(cat, hunt, [mouse], 'kb.txt', 'kb.txt').
+true .
+
+---------------------------------------------------------
+
+?- add_object_relation(spike, hate, [tom], 'kb.txt', 'kb.txt'). % hay una clase, perro que tiene de objeto a spike
+true .
+
++-------------------------------------------------------+
+| Ejemplos de ejecución de punto 2                      |
++-------------------------------------------------------+
