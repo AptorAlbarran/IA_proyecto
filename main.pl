@@ -153,44 +153,54 @@ add_object_relation(ObjectName, RelationName, RelatedObjects, CurrentKBFile, New
 
 % punto 3
 
+% Eliminar una clase de la base de conocimientos y guardar el resultado en un nuevo archivo
 rm_class(ClassName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
     select(class(ClassName, _, _, _, _), CurrentKB, NewKB),
     write_kb(NewKBFile, NewKB).
 
+% Eliminar un objeto de la base de conocimientos y guardar el resultado en un nuevo archivo
 rm_object(ObjectName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
     select(object(ObjectName, _, _), CurrentKB, NewKB),
     write_kb(NewKBFile, NewKB).
 
+% Eliminar una propiedad de una clase y guardar el resultado en un nuevo archivo
 rm_class_property(ClassName, PropertyName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
+    % Encontrar la clase y eliminar la propiedad especificada
     select(class(ClassName, ClassMother, Properties, Methods, Metadata), CurrentKB, RestKB),
     select(property(PropertyName, _), Properties, NewProperties),
     append(RestKB, [class(ClassName, ClassMother, NewProperties, Methods, Metadata)], NewKB),
     write_kb(NewKBFile, NewKB).
 
+% Eliminar una propiedad de un objeto y guardar el resultado en un nuevo archivo
 rm_object_property(ObjectName, PropertyName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
+    % Encontrar el objeto y eliminar la propiedad especificada
     select(object(ObjectName, ClassName, Properties), CurrentKB, RestKB),
     select(property(PropertyName, _), Properties, NewProperties),
     append(RestKB, [object(ObjectName, ClassName, NewProperties)], NewKB),
     write_kb(NewKBFile, NewKB).
 
+% Eliminar una relación de una clase y guardar el resultado en un nuevo archivo
 rm_class_relation(ClassName, RelationName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
+    % Encontrar la clase y eliminar la relación especificada
     select(class(ClassName, ClassMother, Properties, Methods, Metadata), CurrentKB, RestKB),
     select(relation(RelationName, _), Metadata, NewMetadata),
     append(RestKB, [class(ClassName, ClassMother, Properties, Methods, NewMetadata)], NewKB),
     write_kb(NewKBFile, NewKB).
 
+% Eliminar una relación de un objeto y guardar el resultado en un nuevo archivo
 rm_object_relation(ObjectName, RelationName, CurrentKBFile, NewKBFile) :-
     read_kb(CurrentKBFile, CurrentKB),
+    % Encontrar el objeto y eliminar la relación especificada
     select(object(ObjectName, ClassName, Properties), CurrentKB, RestKB),
     select(relation(RelationName, _), Properties, NewProperties),
     append(RestKB, [object(ObjectName, ClassName, NewProperties)], NewKB),
     write_kb(NewKBFile, NewKB).
-
+    
 % punto 4
 
 %[inserte el código aquí]
