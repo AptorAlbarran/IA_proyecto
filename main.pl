@@ -64,6 +64,11 @@ property_extension_clase(Clase, Propiedad, BaseConocimiento, Visitadas, Ext) :-
 miembro(X, [X|_]).
 miembro(X, [_|T]) :- miembro(X, T).
 
+% Definición del predicado relation_extension/3
+relation_extension(Relation, KnowledgeBase, Result) :-
+    findall(Obj, (call(Relation, Obj), member(call(Relation, Obj), KnowledgeBase)), Result).
+
+
 % predicados para puntos 2 y 3
 
 % Leer base de conocimientos desde un archivo .txt
